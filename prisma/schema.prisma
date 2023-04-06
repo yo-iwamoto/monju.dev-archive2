@@ -39,12 +39,18 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
-  accounts      Account[]
-  sessions      Session[]
+
+  accounts           Account[]
+  sessions           Session[]
+  EventParticipation EventParticipation[]
+  EventAdmin         EventAdmin[]
+  DraftEventAdmin    DraftEventAdmin[]
 
   @@map("users")
 }
@@ -56,4 +62,82 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+model DraftEvent {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  title       String?
+  description String? @db.Text
+  capacity    Int?
+
+  Event           Event?
+  DraftEventAdmin DraftEventAdmin[]
+
+  @@map("draft_events")
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  title       String
+  description String @db.Text
+  capacity    Int
+
+  draftEventId String     @unique @map("draft_event_id")
+  draftEvent   DraftEvent @relation(fields: [draftEventId], references: [id], onDelete: Cascade)
+
+  EventAdmin         EventAdmin[]
+  EventParticipation EventParticipation[]
+
+  @@map("events")
+}
+
+model DraftEventAdmin {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  draftEventId String     @map("event_id")
+  draftEvent   DraftEvent @relation(fields: [draftEventId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, draftEventId])
+  @@map("draft_event_admins")
+}
+
+model EventAdmin {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  eventId String @map("event_id")
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventId])
+  @@map("event_admins")
+}
+
+model EventParticipation {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  eventId String @map("event_id")
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventId])
+  @@map("event_participations")
 }

@@ -6,3 +6,4 @@ public/*.js
 public/*.map
 .env
 cypress/screenshots
+**/$api.ts
