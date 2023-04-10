@@ -1,3 +1,4 @@
+import { nextAuthOptions } from '../auth/[...nextauth].api';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import type { NextApiHandler } from 'next';
@@ -8,13 +9,17 @@ const GET = ((_, res) => {
   return res.json({ events });
 }) satisfies NextApiHandler;
 
-const POST = (async (_, res) => {
-  const session = await getServerSession();
+const POST = (async (req, res) => {
+  const session = await getServerSession(req, res, nextAuthOptions);
   if (session === null) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
-  const event = await prisma.draftEvent.create({ data: {} });
+  const event = await prisma.draftEvent.create({
+    data: {
+      description: '',
+    },
+  });
 
   return res.json({
     event,

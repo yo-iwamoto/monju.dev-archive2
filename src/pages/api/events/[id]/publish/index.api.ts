@@ -3,7 +3,7 @@ import { nextAuthOptions } from '@/pages/api/auth/[...nextauth].api';
 import { getServerSession } from 'next-auth/next';
 import type { NextApiHandler } from 'next';
 
-const POST = (async (req, res) => {
+const PATCH = (async (req, res) => {
   const { id } = req.query;
   // URL 不正の時 404
   if (typeof id !== 'string') {
@@ -20,7 +20,9 @@ const POST = (async (req, res) => {
   const draftEvent = await prisma.draftEvent.findUnique({
     include: {
       DraftEventAdmin: {
-        where: { userId: session.userId },
+        select: {
+          userId: true,
+        },
       },
     },
     where: { id },
@@ -30,22 +32,28 @@ const POST = (async (req, res) => {
     return res.status(404).json({ message: 'Not found' });
   }
 
-  const { DraftEventAdmin, ...event } = draftEvent;
+  const adminUserIds = draftEvent.DraftEventAdmin.map((admin) => admin.userId);
+  const isUserMemberOfAdmin = !adminUserIds.includes(session.userId);
+  if (!isUserMemberOfAdmin) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  const { DraftEventAdmin: _, ...event } = draftEvent;
 
   await prisma.event.create({
     data: {
-      ...draftEvent,
+      draftEventId: id,
+      ...event,
     },
   });
 
-  // 下書き状態のイベントを返す
-  return res.json({ event: draftEvent });
+  return res.status(200).json({ message: 'published' });
 }) satisfies NextApiHandler;
 
 const handler = ((req, res) => {
   switch (req.method) {
-    case 'POST':
-      return POST(req, res);
+    case 'PATCH':
+      return PATCH(req, res);
     default:
       return res.status(401).json({ message: 'Method not allowed' });
   }
