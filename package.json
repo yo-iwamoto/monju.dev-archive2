@@ -1,5 +1,5 @@
 {
-  "name": "events-app",
+  "name": "untitled-events-app",
   "license": "MIT",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
