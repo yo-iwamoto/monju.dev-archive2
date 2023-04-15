@@ -13,7 +13,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "sb": "storybook dev -p 6006",
-    "sb:build": "storybook build"
+    "sb:build": "storybook build",
+    "db:push": "prisma db push"
   },
   "dependencies": {
     "@aspida/fetch": "^1.11.0",

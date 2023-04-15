@@ -1,13 +1,17 @@
 import { Button } from '@/components/Button';
+import { pagesPath } from '@/lib/$path';
 import { api } from '@/lib/api';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export default function Page() {
+  const router = useRouter();
+
   const { status, data } = useSession();
 
   const createEvent = async () => {
     const res = await api.events.$post();
-    console.log(res.event);
+    router.push(pagesPath.events._id(res.event.id).edit.$url());
   };
 
   return (

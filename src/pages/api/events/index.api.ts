@@ -1,25 +1,28 @@
-import { nextAuthOptions } from '../auth/[...nextauth].api';
-import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
+import { createDraftEvent } from '@/server/data-access/createDraftEvent';
+import { getEvents } from '@/server/data-access/getEvents';
+import { getSession } from '@/server/lib/getSession';
 import type { NextApiHandler } from 'next';
 
+/**
+ * イベント一覧を取得する
+ * @todo limit や order などのパラメータによる操作
+ */
 const GET = ((_, res) => {
-  const events = prisma.event.findMany();
+  const events = getEvents();
 
   return res.json({ events });
 }) satisfies NextApiHandler;
 
+/**
+ * 下書き状態のイベントを作成する
+ */
 const POST = (async (req, res) => {
-  const session = await getServerSession(req, res, nextAuthOptions);
+  const session = await getSession(req, res);
   if (session === null) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
-  const event = await prisma.draftEvent.create({
-    data: {
-      description: '',
-    },
-  });
+  const event = await createDraftEvent();
 
   return res.json({
     event,

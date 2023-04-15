@@ -1,8 +1,13 @@
-import { prisma } from '@/lib/prisma';
-import { nextAuthOptions } from '@/pages/api/auth/[...nextauth].api';
-import { getServerSession } from 'next-auth/next';
+import { checkIfDraftEventExists } from '@/server/data-access/checkIfDraftEventExists';
+import { publishEvent } from '@/server/data-access/publishEvent';
+import { getSession } from '@/server/lib/getSession';
+import { transaction } from '@/server/lib/transaction';
 import type { NextApiHandler } from 'next';
 
+/**
+ * DRAFT 状態のイベントを PUBLISHED に更新する
+ * ログイン中のユーザーが管理者であるかどうかを検証する
+ */
 const PATCH = (async (req, res) => {
   const { id } = req.query;
   // URL 不正の時 404
@@ -10,44 +15,27 @@ const PATCH = (async (req, res) => {
     return res.status(404).json({ message: 'Not found' });
   }
 
-  const session = await getServerSession(req, res, nextAuthOptions);
+  const session = await getSession(req, res);
   // ログインしていなければ 401
   if (session === null) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
-  // 下書き状態のイベントを検索
-  const draftEvent = await prisma.draftEvent.findUnique({
-    include: {
-      DraftEventAdmin: {
-        select: {
-          userId: true,
-        },
-      },
-    },
-    where: { id },
-  });
-  // 存在しなければ 404
-  if (draftEvent === null) {
-    return res.status(404).json({ message: 'Not found' });
-  }
+  await transaction(async (tx) => {
+    // 下書き状態のイベントが存在するか確認
+    const eventExists = await checkIfDraftEventExists(
+      { id, userId: session.userId },
+      tx
+    );
+    if (!eventExists) {
+      return res.status(404).json({ message: 'Not found' });
+    }
 
-  const adminUserIds = draftEvent.DraftEventAdmin.map((admin) => admin.userId);
-  const isUserMemberOfAdmin = !adminUserIds.includes(session.userId);
-  if (!isUserMemberOfAdmin) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-
-  const { DraftEventAdmin: _, ...event } = draftEvent;
-
-  await prisma.event.create({
-    data: {
-      draftEventId: id,
-      ...event,
-    },
+    // status を 'PUBLISHED' に更新
+    await publishEvent({ id }, tx);
   });
 
-  return res.status(200).json({ message: 'published' });
+  return res.status(200).json({ message: 'Updated' });
 }) satisfies NextApiHandler;
 
 const handler = ((req, res) => {
