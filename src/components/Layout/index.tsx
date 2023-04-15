@@ -4,4 +4,10 @@ type Props = {
   children: ReactNode;
 };
 
-export const Layout = ({ children }: Props) => <div>{children}</div>;
+export const Layout = ({ children }: Props) => {
+  return (
+    <>
+      <div>{children}</div>
+    </>
+  );
+};
