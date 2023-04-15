@@ -27,12 +27,8 @@ export default function Page({ event }: PageProps) {
       <h1 className='font-bold text-3xl'>{title}の編集</h1>
       <p>{event.status}</p>
 
-      <Button type='button' onClick={publish}>
-        公開
-      </Button>
-      <Button type='button' onClick={save}>
-        保存
-      </Button>
+      <Button onClick={publish}>公開</Button>
+      <Button onClick={save}>保存</Button>
     </>
   );
 }

@@ -3,11 +3,17 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 type Props = ComponentPropsWithoutRef<'button'>;
 
-export const Button = ({ children, className, ...props }: Props) => (
+export const Button = ({
+  type = 'button',
+  children,
+  className,
+  ...props
+}: Props) => (
   <button
+    type={type}
     {...props}
     className={cn(
-      'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+      'bg-teal-600 hover:bg-teal-700 transition-colors text-white font-bold py-2 px-4 rounded',
       className
     )}
   >
