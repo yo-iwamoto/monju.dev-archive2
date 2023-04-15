@@ -1,5 +1,7 @@
 import { getDraftEvent } from '@/server/data-access/getDraftEvent';
 import { getSession } from '@/server/lib/getSession';
+import { updateEvent } from '@/server/data-access/updateEvent';
+import { z } from 'zod';
 import type { NextApiHandler } from 'next';
 
 /**
@@ -30,10 +32,41 @@ const GET = (async (req, res) => {
   return res.json({ event });
 }) satisfies NextApiHandler;
 
+const putReqBodySchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  capacity: z.number().min(1).max(500),
+});
+
+/**
+ * 下書き状態のイベントを更新する
+ */
+const PUT = (async (req, res) => {
+  const { id } = req.query;
+  // URL 不正の時 404
+  if (typeof id !== 'string') {
+    return res.status(404).json({ message: 'Not found' });
+  }
+
+  const parsed = putReqBodySchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res
+      .status(400)
+      .json({ message: 'Bad Request', errors: parsed.error });
+  }
+
+  const { data } = parsed;
+  await updateEvent({ id, data });
+
+  return res.status(200).json({ message: 'Updated' });
+}) satisfies NextApiHandler;
+
 const handler = ((req, res) => {
   switch (req.method) {
     case 'GET':
       return GET(req, res);
+    case 'PUT':
+      return PUT(req, res);
     default:
       return res.status(401).json({ message: 'Method not allowed' });
   }
