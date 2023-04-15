@@ -22,9 +22,12 @@ const GET = (async (req, res) => {
   }
 
   // 下書き状態のイベントを検索
-  const event = await getDraftEvent({ id, userId: session.userId });
-  // 存在しなければ 404
-  if (event === null) {
+  const event = await getDraftEvent({ id });
+  // 存在しないまたはログイン中のユーザーが管理者でなければ 404
+  if (
+    event === null ||
+    event.EventAdmin.some((admin) => admin.userId === session.userId)
+  ) {
     return res.status(404).json({ message: 'Not found' });
   }
 
@@ -33,9 +36,9 @@ const GET = (async (req, res) => {
 }) satisfies NextApiHandler;
 
 const putReqBodySchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  capacity: z.number().min(1).max(500),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  capacity: z.number().min(1).max(500).optional(),
 });
 
 /**

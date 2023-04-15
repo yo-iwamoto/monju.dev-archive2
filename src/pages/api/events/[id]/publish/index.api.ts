@@ -1,7 +1,7 @@
-import { checkIfDraftEventExists } from '@/server/data-access/checkIfDraftEventExists';
+import { getDraftEvent } from '@/server/data-access/getDraftEvent';
 import { publishEvent } from '@/server/data-access/publishEvent';
 import { getSession } from '@/server/lib/getSession';
-import { transaction } from '@/server/lib/transaction';
+import { prisma } from '@/server/lib/prisma';
 import type { NextApiHandler } from 'next';
 
 /**
@@ -21,13 +21,14 @@ const PATCH = (async (req, res) => {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
-  await transaction(async (tx) => {
+  await prisma.$transaction(async (tx) => {
     // 下書き状態のイベントが存在するか確認
-    const eventExists = await checkIfDraftEventExists(
-      { id, userId: session.userId },
-      tx
-    );
-    if (!eventExists) {
+    const event = await getDraftEvent({ id }, tx);
+    // 存在しないまたはログイン中のユーザーが管理者でなければ 404
+    if (
+      !event ||
+      !event.EventAdmin.some((admin) => admin.userId === session.userId)
+    ) {
       return res.status(404).json({ message: 'Not found' });
     }
 

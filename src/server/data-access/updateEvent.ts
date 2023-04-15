@@ -4,9 +4,9 @@ import type { ServicePrismaClient } from '../lib/prisma';
 type Args = {
   id: string;
   data: {
-    title: string;
-    description: string;
-    capacity: number;
+    title?: string;
+    description?: string;
+    capacity?: number;
   };
 };
 

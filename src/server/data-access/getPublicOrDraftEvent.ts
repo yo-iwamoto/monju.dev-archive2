@@ -5,22 +5,14 @@ type Args = {
   id: string;
 };
 
-export const getDraftEvent = (
+export const getPublicOrDraftEvent = async (
   { id }: Args,
   client: ServicePrismaClient = prisma
 ) =>
-  client.event.findFirst({
-    where: {
-      id,
-      AND: {
-        status: 'DRAFT',
-      },
-    },
+  client.event.findUnique({
+    where: { id },
     include: {
       EventAdmin: {
-        where: {
-          eventId: id,
-        },
         select: {
           userId: true,
         },

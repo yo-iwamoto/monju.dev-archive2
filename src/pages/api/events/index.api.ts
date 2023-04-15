@@ -1,3 +1,4 @@
+import { addEventAdmin } from '@/server/data-access/addEventAdmin';
 import { createDraftEvent } from '@/server/data-access/createDraftEvent';
 import { getEvents } from '@/server/data-access/getEvents';
 import { getSession } from '@/server/lib/getSession';
@@ -23,6 +24,7 @@ const POST = (async (req, res) => {
   }
 
   const event = await createDraftEvent();
+  await addEventAdmin({ eventId: event.id, userId: session.userId });
 
   return res.json({
     event,

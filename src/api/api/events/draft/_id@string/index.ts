@@ -1,4 +1,4 @@
-import type { Serialize } from '@/api/$utils';
+import type { Serialize } from '@/types/Serialize';
 import type { Event } from '@prisma/client';
 import type { DefineMethods } from 'aspida';
 
@@ -12,9 +12,9 @@ export type Methods = DefineMethods<{
   };
   put: {
     reqBody: {
-      title: string;
-      description: string;
-      capacity: number;
+      title?: string;
+      description?: string;
+      capacity?: number;
     };
   };
 }>;

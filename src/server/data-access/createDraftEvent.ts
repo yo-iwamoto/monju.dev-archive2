@@ -3,6 +3,9 @@ import type { ServicePrismaClient } from '../lib/prisma';
 
 export const createDraftEvent = async (client: ServicePrismaClient = prisma) =>
   client.event.create({
+    select: {
+      id: true,
+    },
     data: {
       title: '',
       description: '',

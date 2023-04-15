@@ -1,9 +1,0 @@
-// Vitest Snapshot v1
-
-exports[`/ Page Component > renders correctly 1`] = `
-<DocumentFragment>
-  <h1>
-    Hello world
-  </h1>
-</DocumentFragment>
-`;
