@@ -7,7 +7,7 @@ export const createDraftEvent = async (client: ServicePrismaClient = prisma) =>
       id: true,
     },
     data: {
-      title: '',
+      title: '新しいイベント',
       description: '',
       capacity: 10,
       status: 'DRAFT',

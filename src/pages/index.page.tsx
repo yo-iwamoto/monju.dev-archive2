@@ -1,36 +1,34 @@
-import { Button } from '@/components/Button';
+import { getServerSideProps } from './index.server';
 import { pagesPath } from '@/lib/$path';
-import { api } from '@/lib/api';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import type { PageProps } from './index.server';
 
-export default function Page() {
-  const router = useRouter();
+export { getServerSideProps };
 
-  const { status, data } = useSession();
-
-  const createEvent = async () => {
-    const res = await api.events.$post();
-    router.push(pagesPath.events._id(res.event.id).edit.$url());
-  };
+export default function Page({ events }: PageProps) {
+  const { status } = useSession();
 
   return (
-    <>
-      {status === 'authenticated' ? (
-        <>
-          <p>you&apos;re authorized</p>
-          {data.user?.image && (
-            <img src={data.user.image} alt={data.user.name ?? ''} />
-          )}
-          <Button onClick={() => signOut()}>Sign out</Button>
+    <div className='px-4 py-8'>
+      <div className='max-w-5xl mx-auto'>
+        <h1>ダッシュボード</h1>
 
-          <Button onClick={createEvent}>
-            Create event (with authorization)
-          </Button>
-        </>
-      ) : (
-        <Button onClick={() => signIn('github')}>Sign in with GitHub</Button>
-      )}
-    </>
+        {status === 'authenticated' ? (
+          <h2>参加予定・開催予定のイベントなどを表示するダッシュボード</h2>
+        ) : null}
+
+        <h2>イベント一覧</h2>
+        <ul className='grid gap-2'>
+          {events.map((event) => (
+            <li key={event.id} className='p-2 bg-white shadow-md'>
+              <Link href={pagesPath.events._id(event.id).$url()}>
+                <p>{event.title}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

@@ -7,14 +7,14 @@ type SerializedEvent = Serialize<Event>;
 export type Methods = DefineMethods<{
   get: {
     resBody: {
-      events: {
-        id: string;
-      };
+      events: SerializedEvent;
     };
   };
   post: {
     resBody: {
-      event: SerializedEvent;
+      event: {
+        id: string;
+      };
     };
   };
 }>;
