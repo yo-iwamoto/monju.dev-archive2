@@ -16,8 +16,8 @@ export const Layout = ({ children }: Props) => {
   return (
     <div className='bg-gray-50'>
       <header className='flex h-[72px] justify-between items-center p-4'>
-        <Link href={pagesPath.$url()} className='font-bold text-3xl'>
-          untitled-events-app
+        <Link href={pagesPath.$url()} className='font-bold text-3xl font-mono'>
+          monju.dev
         </Link>
 
         {session.status === 'authenticated' ? (
