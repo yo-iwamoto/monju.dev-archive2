@@ -1,7 +1,6 @@
-import { nextAuthOptions } from '@/server/lib/nextAuth';
 import { gsspProps } from '@/server/lib/gsspResponse';
 import { getPublicOrDraftEvent } from '@/server/data-access/getPublicOrDraftEvent';
-import { getServerSession } from 'next-auth/next';
+import { getSessionGssp } from '@/server/lib/getSession';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 export const getServerSideProps = (async ({ query, req, res }) => {
@@ -12,7 +11,7 @@ export const getServerSideProps = (async ({ query, req, res }) => {
   // URL が不正な場合 404
   if (typeof id !== 'string') return { notFound: true };
 
-  const session = await getServerSession(req, res, nextAuthOptions);
+  const session = await getSessionGssp(req, res);
   // ログインしていなければ 404
   if (session === null) return { notFound: true };
 

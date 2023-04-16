@@ -13,4 +13,11 @@ export const getEvent = ({ id }: Args, client: ServicePrismaClient = prisma) =>
         status: 'PUBLISHED',
       },
     },
+    include: {
+      EventAdmin: {
+        include: {
+          user: true,
+        },
+      },
+    },
   });
