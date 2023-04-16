@@ -25,7 +25,7 @@ export const Layout = ({ children }: Props) => {
         </Link>
 
         {session.status === 'authenticated' ? (
-          <div className='flex animate-fade-appear items-center gap-2'>
+          <div className='flex animate-fade-appear items-center gap-4'>
             <NewEventButton />
 
             <UserIcon />

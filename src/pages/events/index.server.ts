@@ -1,4 +1,4 @@
-import { listPublicOrDraftEvents } from '@/server/data-access/listPublicOrDraftEvents';
+import { listEvents } from '@/server/data-access/listEvents';
 import { getSessionGssp } from '@/server/lib/getSession';
 import { gsspProps } from '@/server/lib/gsspResponse';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
@@ -16,7 +16,7 @@ export const getServerSideProps = (async ({ req, res }) => {
       },
     };
 
-  const events = await listPublicOrDraftEvents({ userId: session.userId });
+  const events = await listEvents({ userId: session.userId });
 
   return {
     props: gsspProps({

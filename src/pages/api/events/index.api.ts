@@ -1,6 +1,6 @@
 import { addEventAdmin } from '@/server/data-access/addEventAdmin';
 import { createDraftEvent } from '@/server/data-access/createDraftEvent';
-import { listEvents } from '@/server/data-access/listEvents';
+import { listPublicEvents } from '@/server/data-access/listPublicEvents';
 import { getSession } from '@/server/lib/getSession';
 import type { NextApiHandler } from 'next';
 
@@ -9,7 +9,7 @@ import type { NextApiHandler } from 'next';
  * @todo limit や order などのパラメータによる操作
  */
 const GET = ((_, res) => {
-  const events = listEvents();
+  const events = listPublicEvents();
 
   return res.json({ events });
 }) satisfies NextApiHandler;

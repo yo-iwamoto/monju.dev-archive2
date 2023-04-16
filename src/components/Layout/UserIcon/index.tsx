@@ -1,4 +1,4 @@
-import { useMe } from '@/queries/useMe';
+import { useMeQuery } from '@/queries/useMeQuery';
 import { pagesPath } from '@/lib/$path';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ExitIcon, RocketIcon } from '@radix-ui/react-icons';
@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 export const UserIcon = () => {
   const router = useRouter();
 
-  const meQuery = useMe();
+  const meQuery = useMeQuery();
 
   const imageUrl = meQuery.data?.image;
 

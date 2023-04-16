@@ -2,18 +2,24 @@ import { prisma } from '../lib/prisma';
 import type { ServicePrismaClient } from '../lib/prisma';
 
 type Args = {
-  userId: string;
+  id: string;
 };
 
-export const listPublicOrDraftEvents = async (
-  { userId }: Args,
+export const getPublicEvent = (
+  { id }: Args,
   client: ServicePrismaClient = prisma
 ) =>
-  client.event.findMany({
+  client.event.findFirst({
     where: {
+      id,
+      AND: {
+        status: 'PUBLISHED',
+      },
+    },
+    include: {
       EventAdmin: {
-        some: {
-          userId,
+        include: {
+          user: true,
         },
       },
     },

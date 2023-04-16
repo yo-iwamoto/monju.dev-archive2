@@ -3,11 +3,11 @@ export const pagesPath = {
     $url: (url?: { hash?: string }) => ({ pathname: '/auth' as const, hash: url?.hash })
   },
   "events": {
-    _id: (id: string | number) => ({
+    _eventId: (eventId: string | number) => ({
       "edit": {
-        $url: (url?: { hash?: string }) => ({ pathname: '/events/[id]/edit' as const, query: { id }, hash: url?.hash })
+        $url: (url?: { hash?: string }) => ({ pathname: '/events/[eventId]/edit' as const, query: { eventId }, hash: url?.hash })
       },
-      $url: (url?: { hash?: string }) => ({ pathname: '/events/[id]' as const, query: { id }, hash: url?.hash })
+      $url: (url?: { hash?: string }) => ({ pathname: '/events/[eventId]' as const, query: { eventId }, hash: url?.hash })
     }),
     $url: (url?: { hash?: string }) => ({ pathname: '/events' as const, hash: url?.hash })
   },
