@@ -1,10 +1,9 @@
 import { getServerSideProps } from './index.server';
+import { AdminEventPage } from '@/components/pages/AdminEventPage';
 import type { PageProps } from './index.server';
 
 export { getServerSideProps };
 
-export default function Page({ events }: PageProps) {
-  console.log({ events });
-
-  return <h1>自分が管理しているイベントの一覧ページ</h1>;
+export default function Page(pageProps: PageProps) {
+  return <AdminEventPage pageProps={pageProps} />;
 }

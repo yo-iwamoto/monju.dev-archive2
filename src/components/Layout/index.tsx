@@ -19,7 +19,7 @@ export const Layout = ({ children }: Props) => {
       <header className='flex h-[72px] justify-between items-center p-4'>
         <Link
           href={pagesPath.$url()}
-          className='font-bold text-xl md:text-3xl font-mono'
+          className='font-bold text-xl md:text-2xl font-mono'
         >
           monju.dev
         </Link>
