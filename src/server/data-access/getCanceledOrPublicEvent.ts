@@ -5,14 +5,18 @@ type Args = {
   id: string;
 };
 
-/**
- * id でイベントを検索
- * 全ての状態のイベントが含まれる
- */
-export const getEvent = ({ id }: Args, client: ServicePrismaClient = prisma) =>
+export const getCanceledOrPublicEvent = (
+  { id }: Args,
+  client: ServicePrismaClient = prisma
+) =>
   client.event.findFirst({
     where: {
       id,
+      AND: {
+        status: {
+          not: 'DRAFT',
+        },
+      },
     },
     include: {
       EventAdmin: {

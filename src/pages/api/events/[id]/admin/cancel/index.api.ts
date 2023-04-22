@@ -1,11 +1,12 @@
-import { getDraftEvent } from '@/server/data-access/getDraftEvent';
-import { publishEvent } from '@/server/data-access/publishEvent';
+import { cancelEvent } from '@/server/data-access/cancelEvent';
+import { getCanceledOrPublicEvent } from '@/server/data-access/getCanceledOrPublicEvent';
 import { getSession } from '@/server/lib/getSession';
 import { prisma } from '@/server/lib/prisma';
 import type { NextApiHandler } from 'next';
 
 /**
- * DRAFT 状態のイベントを PUBLISHED に更新する
+ * PUBLISHED 状態のイベントを CANCELED に更新する
+ * 想定していないが冪等性のため、CANCELED 状態のイベントでも 200 を返す
  * ログイン中のユーザーが管理者であるかどうかを検証する
  */
 const PATCH = (async (req, res) => {
@@ -22,8 +23,8 @@ const PATCH = (async (req, res) => {
   }
 
   await prisma.$transaction(async (tx) => {
-    // 下書き状態のイベントが存在するか確認
-    const event = await getDraftEvent({ id }, tx);
+    // 公開状態（またはキャンセル状態）のイベントを検索
+    const event = await getCanceledOrPublicEvent({ id }, tx);
     // 存在しないまたはログイン中のユーザーが管理者でなければ 404
     if (
       !event ||
@@ -32,8 +33,11 @@ const PATCH = (async (req, res) => {
       return res.status(404).json({ message: 'Not found' });
     }
 
-    // status を 'PUBLISHED' に更新
-    await publishEvent({ id }, tx);
+    // 既に CANCELED であればトランザクションを終了
+    if (event.status === 'CANCELED') return;
+
+    // status を 'CANCELED' に更新
+    await cancelEvent({ id }, tx);
   });
 
   return res.status(200).json({ message: 'Updated' });

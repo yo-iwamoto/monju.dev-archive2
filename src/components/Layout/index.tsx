@@ -4,6 +4,7 @@ import { Button } from '../Button';
 import { pagesPath } from '@/lib/$path';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import type { ReactNode } from 'react';
 
 type Props = {
@@ -16,12 +17,15 @@ export const Layout = ({ children }: Props) => {
   return (
     <div className='bg-gray-50'>
       <header className='flex h-[72px] justify-between items-center p-4'>
-        <Link href={pagesPath.$url()} className='font-bold text-3xl font-mono'>
+        <Link
+          href={pagesPath.$url()}
+          className='font-bold text-xl md:text-2xl font-mono'
+        >
           monju.dev
         </Link>
 
         {session.status === 'authenticated' ? (
-          <div className='flex animate-fade-appear items-center gap-2'>
+          <div className='flex animate-fade-appear items-center gap-4'>
             <NewEventButton />
 
             <UserIcon />
@@ -31,7 +35,10 @@ export const Layout = ({ children }: Props) => {
             className='animate-fade-appear'
             onClick={() => signIn('github')}
           >
-            サインイン
+            <span className='flex items-center gap-2'>
+              <GitHubLogoIcon className='h-5 w-5 text-white' />
+              <span>GitHub でサインイン</span>
+            </span>
           </Button>
         ) : null}
       </header>

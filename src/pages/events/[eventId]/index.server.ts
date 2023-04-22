@@ -1,5 +1,5 @@
 import { gsspProps } from '@/server/lib/gsspResponse';
-import { getEvent } from '@/server/data-access/getEvent';
+import { getPublicEvent } from '@/server/data-access/getPublicEvent';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 export const getServerSideProps = (async ({ query, res }) => {
@@ -8,14 +8,14 @@ export const getServerSideProps = (async ({ query, res }) => {
     'public, s-maxage=10, stale-while-revalidate=59'
   );
 
-  const { id } = query;
+  const { eventId: id } = query;
   // URL が不正な場合 404
   if (typeof id !== 'string') return { notFound: true };
 
-  // id で下書き状態のイベントを検索
-  const event = await getEvent({ id });
+  // id でイベントを検索
+  const event = await getPublicEvent({ id });
 
-  // イベントが存在しないかログイン中のユーザーが管理者でなければ 404
+  // イベントが存在ければ 404
   if (!event) return { notFound: true };
 
   return {

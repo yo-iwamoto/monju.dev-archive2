@@ -22,7 +22,7 @@ export default function Page({ events }: PageProps) {
         <ul className='grid gap-2'>
           {events.map((event) => (
             <li key={event.id} className='p-2 bg-white shadow-md'>
-              <Link href={pagesPath.events._id(event.id).$url()}>
+              <Link href={pagesPath.events._eventId(event.id).$url()}>
                 <p>{event.title}</p>
               </Link>
             </li>
