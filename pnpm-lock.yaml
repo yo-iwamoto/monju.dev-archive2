@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@aspida/axios':
@@ -139,8 +143,8 @@ devDependencies:
     specifier: ^2.8.7
     version: 2.8.7
   prettier-plugin-tailwindcss:
-    specifier: ^0.2.5
-    version: 0.2.5(prettier@2.8.7)
+    specifier: ^0.3.0
+    version: 0.3.0(prettier@2.8.7)
   prisma:
     specifier: ^4.12.0
     version: 4.12.0
@@ -2760,7 +2764,7 @@ packages:
       '@storybook/csf-plugin': 7.0.0
       '@storybook/csf-tools': 7.0.0
       '@storybook/global': 5.0.0
-      '@storybook/mdx2-csf': 1.0.0-next.8
+      '@storybook/mdx2-csf': 1.1.0-next.1
       '@storybook/node-logger': 7.0.0
       '@storybook/postinstall': 7.0.0
       '@storybook/preview-api': 7.0.0
@@ -2863,7 +2867,7 @@ packages:
     dependencies:
       '@storybook/client-logger': 7.0.0
       '@storybook/core-events': 7.0.0
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/global': 5.0.0
       '@storybook/manager-api': 7.0.0(react-dom@18.2.0)(react@18.2.0)
       '@storybook/preview-api': 7.0.0
@@ -3004,7 +3008,7 @@ packages:
       '@storybook/client-logger': 7.0.0
       '@storybook/components': 7.0.0(react-dom@18.2.0)(react@18.2.0)
       '@storybook/core-events': 7.0.0
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/docs-tools': 7.0.0
       '@storybook/global': 5.0.0
       '@storybook/manager-api': 7.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -3229,7 +3233,7 @@ packages:
       '@babel/core': 7.21.3
       '@babel/preset-env': 7.20.2(@babel/core@7.21.3)
       '@babel/types': 7.21.4
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/csf-tools': 7.0.0
       '@storybook/node-logger': 7.0.0
       '@storybook/types': 7.0.0
@@ -3250,7 +3254,7 @@ packages:
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@storybook/client-logger': 7.0.0
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/global': 5.0.0
       '@storybook/theming': 7.0.0(react-dom@18.2.0)(react@18.2.0)
       '@storybook/types': 7.0.0
@@ -3328,7 +3332,7 @@ packages:
       '@storybook/builder-manager': 7.0.0
       '@storybook/core-common': 7.0.0
       '@storybook/core-events': 7.0.0
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/csf-tools': 7.0.0
       '@storybook/docs-mdx': 0.0.1-next.7
       '@storybook/global': 5.0.0
@@ -3400,7 +3404,7 @@ packages:
       '@babel/parser': 7.21.3
       '@babel/traverse': 7.21.3
       '@babel/types': 7.21.4
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/types': 7.0.0
       fs-extra: 11.1.1
       recast: 0.23.1
@@ -3415,17 +3419,17 @@ packages:
       lodash: 4.17.21
     dev: true
 
-  /@storybook/csf@0.0.2-next.11:
-    resolution: {integrity: sha512-xGt0YSVxZb43sKmEf1GIQD8xEbo+c+S6khDEL7Qu/pYA0gh5z3WUuhOlovnelYj/YJod+XRsfVvk23AaRfUJ4Q==}
-    dependencies:
-      type-fest: 2.19.0
-    dev: true
-
   /@storybook/csf@0.1.0:
     resolution: {integrity: sha512-uk+jMXCZ8t38jSTHk2o5btI+aV2Ksbvl6DoOv3r6VaCM1KZqeuMwtwywIQdflkA8/6q/dKT8z8L+g8hC4GC3VQ==}
     dependencies:
       type-fest: 2.19.0
     dev: false
+
+  /@storybook/csf@0.1.1-next.0:
+    resolution: {integrity: sha512-2M8E4CZOVW77P9lrgZZc2rcwxhNKVVykpzbcAauc3bots7xvDJMG60EasMRB/Y+cfqnSu6aaSUEVmKHTKsVJ3A==}
+    dependencies:
+      type-fest: 2.19.0
+    dev: true
 
   /@storybook/docs-mdx@0.0.1-next.7:
     resolution: {integrity: sha512-JbgBf/EMBtx65iXtB3pOiX3818UeL9jZ+KAY241OAPqJVXjMQ5KaVOdg/57MSmd508HDIGx7CiImOMEmWwQ9/g==}
@@ -3467,7 +3471,7 @@ packages:
       '@storybook/channels': 7.0.0
       '@storybook/client-logger': 7.0.0
       '@storybook/core-events': 7.0.0
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/global': 5.0.0
       '@storybook/router': 7.0.0(react-dom@18.2.0)(react@18.2.0)
       '@storybook/theming': 7.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -3512,8 +3516,8 @@ packages:
     resolution: {integrity: sha512-lMSM6PQvSLtq46JVaMq/xuxjOzZuD20DMcJzYnjFL3bkMjmkL2hHyzYjfs4BTI9i9nhPqXF/rZSwFGGG+ok9dw==}
     dev: true
 
-  /@storybook/mdx2-csf@1.0.0-next.8:
-    resolution: {integrity: sha512-t2O5s/HHTH5evZVHgVtCWTZgMZ/CaqDu3xVGgjVbKeTvpPAbi0Waab5SSX8T9PG5jNDei/x+jpAVCcNMOHoWzg==}
+  /@storybook/mdx2-csf@1.1.0-next.1:
+    resolution: {integrity: sha512-ONvFBZySHsBIkUYGrUM8FCG2tDKf663TIErztPSOghOpmBGyFLjSsXJHkNWiRi4c740PoemLqJd2XZZVlXRVLQ==}
     dev: true
 
   /@storybook/nextjs@7.0.0(@babel/core@7.21.3)(esbuild@0.17.12)(next@13.2.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.2)(webpack@5.77.0):
@@ -3669,7 +3673,7 @@ packages:
       '@storybook/channels': 7.0.0
       '@storybook/client-logger': 7.0.0
       '@storybook/core-events': 7.0.0
-      '@storybook/csf': 0.0.2-next.11
+      '@storybook/csf': 0.1.1-next.0
       '@storybook/global': 5.0.0
       '@storybook/types': 7.0.0
       '@types/qs': 6.9.7
@@ -9105,12 +9109,11 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-tailwindcss@0.2.5(prettier@2.8.7):
-    resolution: {integrity: sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==}
+  /prettier-plugin-tailwindcss@0.3.0(prettier@2.8.7):
+    resolution: {integrity: sha512-009/Xqdy7UmkcTBpwlq7jsViDqXAYSOMLDrHAdTMlVZOrKfM2o9Ci7EMWTMZ7SkKBFTG04UM9F9iM2+4i6boDA==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
-      '@prettier/plugin-php': '*'
       '@prettier/plugin-pug': '*'
       '@shopify/prettier-plugin-liquid': '*'
       '@shufo/prettier-plugin-blade': '*'
@@ -9120,6 +9123,7 @@ packages:
       prettier-plugin-css-order: '*'
       prettier-plugin-import-sort: '*'
       prettier-plugin-jsdoc: '*'
+      prettier-plugin-marko: '*'
       prettier-plugin-organize-attributes: '*'
       prettier-plugin-organize-imports: '*'
       prettier-plugin-style-order: '*'
@@ -9127,8 +9131,6 @@ packages:
       prettier-plugin-twig-melody: '*'
     peerDependenciesMeta:
       '@ianvs/prettier-plugin-sort-imports':
-        optional: true
-      '@prettier/plugin-php':
         optional: true
       '@prettier/plugin-pug':
         optional: true
@@ -9145,6 +9147,8 @@ packages:
       prettier-plugin-import-sort:
         optional: true
       prettier-plugin-jsdoc:
+        optional: true
+      prettier-plugin-marko:
         optional: true
       prettier-plugin-organize-attributes:
         optional: true
