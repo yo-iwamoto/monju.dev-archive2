@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "sb": "storybook dev -p 6006",
     "sb:build": "storybook build",
-    "db:push": "prisma db push"
+    "db:push": "prisma prisma db push",
+    "db:open": "prisma studio"
   },
   "dependencies": {
     "@aspida/axios": "^1.12.0",
