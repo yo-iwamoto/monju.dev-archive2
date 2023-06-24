@@ -19,7 +19,7 @@ export const UserIcon = () => {
       <DropdownMenu.Trigger asChild>
         <button
           aria-label='ユーザーメニューを開く'
-          className='h-10 w-10 hover:opacity-80 transition-opacity rounded-full overflow-hidden hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500'
+          className='h-10 w-10 hover:opacity-80 transition-opacity rounded-full overflow-hidden hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-black ring-offset-1'
         >
           <img src={imageUrl} alt='プロフィール画像' />
         </button>
