@@ -1,4 +1,4 @@
-import type { Event, EventStatus } from '@prisma/client';
+import type { EventStatus } from '@prisma/client';
 
 type Branded<T, B> = T & { __brand: B };
 
@@ -17,8 +17,3 @@ export type Serialize<T> = T extends Date
   : T extends EventStatus
   ? SerializedEventStatus
   : T;
-
-type E = Serialize<Event>;
-(e: E) => {
-  e.status.st;
-};

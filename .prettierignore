@@ -1,5 +1,2 @@
-# for pathpida
-src/lib/$path.ts
-
 # for aspida
 src/api/**/*/$api.ts

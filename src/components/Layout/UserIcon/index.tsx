@@ -1,5 +1,5 @@
+import { paths } from '@/lib/paths';
 import { useMeQuery } from '@/queries/useMeQuery';
-import { pagesPath } from '@/lib/$path';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ExitIcon, RocketIcon } from '@radix-ui/react-icons';
 import { signOut } from 'next-auth/react';
@@ -33,7 +33,7 @@ export const UserIcon = () => {
         >
           <DropdownMenu.Item
             className='p-1 group data-[highlighted]:outline-none cursor-pointer'
-            onSelect={() => router.push(pagesPath.events.$url())}
+            onSelect={() => router.push(paths.event.index)}
           >
             <span className='group-data-[highlighted]:text-white group-data-[highlighted]:bg-cyan-500 text-gray-900 flex w-full items-center rounded-md px-2 py-2 text-sm'>
               <RocketIcon

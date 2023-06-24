@@ -1,5 +1,5 @@
 import { getServerSideProps } from './index.server';
-import { pagesPath } from '@/lib/$path';
+import { paths } from '@/lib/paths';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import type { PageProps } from './index.server';
@@ -22,7 +22,7 @@ export default function Page({ events }: PageProps) {
         <ul className='grid gap-2'>
           {events.map((event) => (
             <li key={event.id} className='p-2 bg-white shadow-md'>
-              <Link href={pagesPath.events._eventId(event.id).$url()}>
+              <Link href={paths.event.detail(event.id)}>
                 <p>{event.title}</p>
               </Link>
             </li>

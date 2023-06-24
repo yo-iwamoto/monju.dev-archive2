@@ -1,7 +1,7 @@
 import { NewEventButton } from './NewEventButton';
 import { UserIcon } from './UserIcon';
 import { Button } from '../Button';
-import { pagesPath } from '@/lib/$path';
+import { paths } from '@/lib/paths';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
@@ -18,7 +18,7 @@ export const Layout = ({ children }: Props) => {
     <div className='bg-gray-50'>
       <header className='flex h-[72px] justify-between items-center p-4'>
         <Link
-          href={pagesPath.$url()}
+          href={paths.top}
           className='font-bold text-xl md:text-2xl font-mono'
         >
           monju.dev

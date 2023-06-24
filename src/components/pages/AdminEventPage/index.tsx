@@ -1,6 +1,6 @@
 import { StatusTip } from './StatusTip';
-import { pagesPath } from '@/lib/$path';
 import { CenteredContainer } from '@/components/CenteredContainer';
+import { paths } from '@/lib/paths';
 import Link from 'next/link';
 import type { PageProps } from '@/pages/events/index.server';
 
@@ -18,8 +18,8 @@ export const AdminEventPage = ({ pageProps: { events } }: Props) => {
             <Link
               href={
                 status === 'DRAFT'
-                  ? pagesPath.events._eventId(id).edit.$url()
-                  : pagesPath.events._eventId(id).$url()
+                  ? paths.event.edit(id)
+                  : paths.event.detail(id)
               }
             >
               <div className='p-2 shadow-md rounded-md bg-white'>

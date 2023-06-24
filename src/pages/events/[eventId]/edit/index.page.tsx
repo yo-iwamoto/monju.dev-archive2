@@ -2,8 +2,8 @@ import { getServerSideProps } from './index.server';
 import { Seo } from './seo';
 import { Button } from '@/components/Button';
 import { api } from '@/lib/api';
-import { pagesPath } from '@/lib/$path';
 import { CenteredContainer } from '@/components/CenteredContainer';
+import { paths } from '@/lib/paths';
 import { useRouter } from 'next/router';
 import type { PageProps } from './index.server';
 
@@ -15,7 +15,7 @@ export default function Page({ event }: PageProps) {
   const title = event.title || 'イベント';
   const publish = async () => {
     await api.events._id(event.id).admin.publish.patch();
-    router.push(pagesPath.events._eventId(event.id).$url());
+    router.push(paths.event.detail(event.id));
   };
 
   const save = async () => {

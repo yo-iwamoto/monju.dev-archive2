@@ -1,7 +1,7 @@
 import { getServerSideProps } from './index.server';
 import { ButtonLink } from '@/components/Button';
-import { pagesPath } from '@/lib/$path';
 import { useIsOwner } from '@/lib/useIsOwner';
+import { paths } from '@/lib/paths';
 import type { PageProps } from './index.server';
 
 export { getServerSideProps };
@@ -13,9 +13,7 @@ export default function Page({ event }: PageProps) {
     <>
       <h1>{event.title}</h1>
       {isOwner && (
-        <ButtonLink href={pagesPath.events._eventId(event.id).edit.$url()}>
-          編集
-        </ButtonLink>
+        <ButtonLink href={paths.event.edit(event.id)}>編集</ButtonLink>
       )}
     </>
   );
